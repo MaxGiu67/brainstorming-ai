@@ -2,12 +2,15 @@
   "name": "brainstorming-ai",
   "version": "1.0.0",
   "description": "Sei agenti AI per passare da un'idea grezza a un perimetro MVP validato. Brainstorming strutturato, problem framing (JTBD) e scoping (MoSCoW).",
-  "skills": [
-    "bs-init",
-    "bs-brainstorm",
-    "bs-chat",
-    "bs-problem",
-    "bs-scope",
-    "bs-status"
+  "owner": {
+    "name": "MaxGiu67"
+  },
+  "plugins": [
+    {
+      "name": "brainstorming-ai",
+      "version": "1.0.0",
+      "description": "Brainstorming strutturato con 6 agenti AI: trio creativo, problem framing JTBD, MVP scoping MoSCoW. 6 skill per validare un'idea.",
+      "source": "."
+    }
   ]
 }
