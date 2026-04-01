@@ -62,11 +62,15 @@ Ultimo aggiornamento: ${now}
 ## Stato Brainstorming
 | Fase | File | Status | Progresso |
 |------|------|--------|-----------|
-| Brainstorm | 01-brainstorm.md | ⏳ In attesa | 0% |
+| 1. Brainstorm | 01-brainstorm.md | ⏳ In attesa | 0% |
+| 2. Problem Framing | 02-problem-framing.md | ⏳ In attesa | 0% |
+| 3. MVP Scope | 04-mvp-scope.md | ⏳ In attesa | 0% |
 
 ## Prossimi Passi
 1. Eseguire /bs-brainstorm per la sessione con il trio creativo
 2. Scegliere il concept migliore tra i 3 proposti
+3. Eseguire /bs-problem per definire il problema (JTBD)
+4. Eseguire /bs-scope per decidere cosa costruire prima (MoSCoW)
 
 ---
 _Ultimo aggiornamento: ${now}_
@@ -115,6 +119,74 @@ _Generato da init-brainstorm.ts — ${now}_
 `;
   fs.writeFileSync(path.join(baseDir, '01-brainstorm.md'), brainstormContent, 'utf-8');
 
+  // Crea template 02-problem-framing.md
+  const problemContent = `# Problem Framing: ${config.name}
+
+Definizione del problema, JTBD, ipotesi testabili e metriche.
+
+## Job-to-be-Done
+_Quando [situazione], voglio [motivazione], così da [risultato atteso]._
+
+## Ipotesi Testabili
+### H1 — Critica
+_Ipotesi fondamentale che, se falsa, invalida l'MVP._
+
+### H2 — Importante
+_Ipotesi significativa per il successo._
+
+### H3 — Nice-to-have
+_Ipotesi che arricchisce ma non è bloccante._
+
+## Metriche
+| Metrica | Target | Come misurare |
+|---------|--------|---------------|
+| Activation rate | — | — |
+| Retention D7 | — | — |
+| Retention D30 | — | — |
+| Task success rate | — | — |
+
+---
+_Generato da init-brainstorm.ts — ${now}_
+`;
+  fs.writeFileSync(path.join(baseDir, '02-problem-framing.md'), problemContent, 'utf-8');
+
+  // Crea template 04-mvp-scope.md
+  const scopeContent = `# MVP Scope: ${config.name}
+
+Definizione scope MVP con MoSCoW e anti-scope.
+
+## MoSCoW
+### Must Have
+| Feature | Giustificazione (H/rischio) | Effort |
+|---------|---------------------------|--------|
+
+### Should Have
+| Feature | Motivo |
+|---------|--------|
+
+### Could Have
+| Feature | Motivo |
+|---------|--------|
+
+### Won't Have (Anti-Scope)
+| Feature | Motivo esclusione |
+|---------|------------------|
+
+## Milestone
+### MVP (v0.1)
+_Scope minimo per validare H1._
+
+### v0.2
+_Estensioni prioritarie._
+
+### v0.3
+_Evoluzione successiva._
+
+---
+_Generato da init-brainstorm.ts — ${now}_
+`;
+  fs.writeFileSync(path.join(baseDir, '04-mvp-scope.md'), scopeContent, 'utf-8');
+
   // Stampa riepilogo
   console.log('\n✅ Brainstorming inizializzato con successo!\n');
   console.log(`📁 Nome: ${config.name}`);
@@ -123,6 +195,8 @@ _Generato da init-brainstorm.ts — ${now}_
   console.log(`📂 Percorso base: ${baseDir}\n`);
   console.log('File creati:');
   console.log('  ✓ 01-brainstorm.md');
+  console.log('  ✓ 02-problem-framing.md');
+  console.log('  ✓ 04-mvp-scope.md');
   console.log('  ✓ _status.md');
   console.log('  ✓ _changelog.md');
   console.log('\n→ Prossimo passo: esegui /bs-brainstorm per la sessione con il trio creativo');

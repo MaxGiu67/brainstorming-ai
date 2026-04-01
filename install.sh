@@ -10,7 +10,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$HOME/.claude/skills"
-SKILLS=("bs-brainstorm" "bs-init" "bs-status")
+SKILLS=("bs-init" "bs-brainstorm" "bs-chat" "bs-problem" "bs-scope" "bs-status")
 MODE="symlink"
 
 # Parse argomenti
@@ -65,11 +65,14 @@ for skill in "${SKILLS[@]}"; do
 done
 
 echo ""
-echo "✅ Installazione completata! 3 skill installate."
+echo "✅ Installazione completata! 6 skill installate."
 echo ""
 echo "Skill disponibili:"
 echo "  /bs-init       — Inizializza una sessione di brainstorming"
 echo "  /bs-brainstorm — Avvia il trio creativo (Esplosione → Demolizione → Sintesi)"
+echo "  /bs-chat       — Parla con gli agenti usando @nome"
+echo "  /bs-problem    — Definisci il problema con JTBD e ipotesi"
+echo "  /bs-scope      — Prioritizza con MoSCoW: cosa dentro, cosa fuori"
 echo "  /bs-status     — Mostra lo stato della sessione"
 echo ""
 echo "→ Riavvia Claude Code, poi esegui /bs-init per iniziare."

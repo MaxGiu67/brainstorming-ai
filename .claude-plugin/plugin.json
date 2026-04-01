@@ -1,13 +1,15 @@
 {
   "name": "brainstorming-ai",
   "version": "1.0.0",
-  "description": "Brainstorming strutturato con 3 agenti AI: Esplosione, Demolizione, Sintesi. Valida un'idea prima di investirci tempo e soldi.",
+  "description": "Sei agenti AI per passare da un'idea grezza a un perimetro MVP validato. Brainstorming strutturato, problem framing e scoping.",
   "keywords": [
     "brainstorming",
     "ideation",
     "creative-thinking",
     "idea-validation",
-    "trio-creativo",
-    "divergent-thinking"
+    "problem-framing",
+    "mvp-scoping",
+    "jtbd",
+    "moscow"
   ]
 }

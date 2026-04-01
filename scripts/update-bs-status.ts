@@ -3,6 +3,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+interface PhaseStatus {
+  name: string;
+  file: string;
+  hasContent: boolean;
+  progress: number;
+  status: string;
+}
+
 function parseArgs(): string {
   const args = process.argv.slice(2);
   let brainstormDir = './brainstorm';
@@ -21,6 +29,27 @@ function countWords(text: string): number {
   return text.split(/\s+/).filter(w => w.length > 0).length;
 }
 
+function analyzeFile(filePath: string): { hasContent: boolean; progress: number } {
+  if (!fs.existsSync(filePath)) {
+    return { hasContent: false, progress: 0 };
+  }
+
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const words = countWords(content);
+
+  const hasContent = words > 100;
+  const progress = Math.min(100, Math.round((words / 300) * 100));
+
+  return { hasContent, progress };
+}
+
+function determineStatus(hasContent: boolean, progress: number): string {
+  if (!hasContent) return '⏳ In attesa';
+  if (progress < 30) return '🔄 Bozza';
+  if (progress < 70) return '📝 In lavorazione';
+  return '✅ Completato';
+}
+
 function main() {
   const brainstormDir = parseArgs();
 
@@ -29,24 +58,22 @@ function main() {
     process.exit(1);
   }
 
-  // Analizza 01-brainstorm.md
-  const brainstormFile = path.join(brainstormDir, '01-brainstorm.md');
-  let hasContent = false;
-  let progress = 0;
-  let status = '⏳ In attesa';
+  // Definisci fasi
+  const phases: [string, string][] = [
+    ['Brainstorm', '01-brainstorm.md'],
+    ['Problem Framing', '02-problem-framing.md'],
+    ['MVP Scope', '04-mvp-scope.md'],
+  ];
 
-  if (fs.existsSync(brainstormFile)) {
-    const content = fs.readFileSync(brainstormFile, 'utf-8');
-    const words = countWords(content);
+  const phaseStatuses: PhaseStatus[] = [];
 
-    hasContent = words > 100;
-    progress = Math.min(100, Math.round((words / 300) * 100));
+  phases.forEach(([name, file]) => {
+    const filePath = path.join(brainstormDir, file);
+    const { hasContent, progress } = analyzeFile(filePath);
+    const status = determineStatus(hasContent, progress);
 
-    if (!hasContent) status = '⏳ In attesa';
-    else if (progress < 30) status = '🔄 Bozza';
-    else if (progress < 70) status = '📝 In lavorazione';
-    else status = '✅ Completato';
-  }
+    phaseStatuses.push({ name, file, hasContent, progress, status });
+  });
 
   // Leggi info progetto dal _status.md esistente
   let projectName = 'Progetto';
@@ -72,22 +99,29 @@ function main() {
     }
   }
 
-  const progressBar = `${'█'.repeat(Math.floor(progress / 10))}${'░'.repeat(10 - Math.floor(progress / 10))} ${progress}%`;
-
   tableContent += '## Stato Brainstorming\n';
   tableContent += '| Fase | File | Status | Progresso |\n';
   tableContent += '|------|------|--------|----------|\n';
-  tableContent += `| Brainstorm | 01-brainstorm.md | ${status} | ${progressBar} |\n`;
+
+  phaseStatuses.forEach((ps, i) => {
+    const progressBar = `${'█'.repeat(Math.floor(ps.progress / 10))}${'░'.repeat(10 - Math.floor(ps.progress / 10))} ${ps.progress}%`;
+    tableContent += `| ${i + 1}. ${ps.name} | ${ps.file} | ${ps.status} | ${progressBar} |\n`;
+  });
+
+  // Determina prossimi passi
+  const completedCount = phaseStatuses.filter(ps => ps.progress >= 70).length;
+  const firstIncomplete = phaseStatuses.find(ps => ps.progress < 70);
 
   tableContent += '\n## Prossimi Passi\n';
-  if (!hasContent) {
+  if (completedCount === 0) {
     tableContent += '1. Eseguire /bs-brainstorm per la sessione con il trio creativo\n';
-  } else if (progress < 100) {
-    tableContent += '1. Completare la sessione di brainstorming\n';
-    tableContent += '2. Scegliere il concept migliore\n';
+  } else if (completedCount === 1) {
+    tableContent += '1. Eseguire /bs-problem per definire il problema (JTBD, ipotesi)\n';
+  } else if (completedCount === 2) {
+    tableContent += '1. Eseguire /bs-scope per decidere cosa costruire prima (MoSCoW)\n';
   } else {
-    tableContent += '1. Scegliere il concept migliore tra i 3 proposti\n';
-    tableContent += '2. Approfondire il concept scelto\n';
+    tableContent += '1. Perimetro MVP completato!\n';
+    tableContent += '2. Sai SE l\'idea regge e COSA costruire.\n';
   }
 
   tableContent += `\n---\n_Ultimo aggiornamento: ${now}_\n`;
@@ -97,7 +131,9 @@ function main() {
 
   // Stampa riepilogo
   console.log(`\n✅ Status brainstorming aggiornato!`);
-  console.log(`Brainstorm: ${status} (${progress}%)`);
+  phaseStatuses.forEach((ps, i) => {
+    console.log(`${i + 1}. ${ps.name}: ${ps.status} (${ps.progress}%)`);
+  });
   console.log(`\n→ File salvato: ${existingStatusPath}`);
 }
 

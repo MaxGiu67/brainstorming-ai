@@ -1,10 +1,13 @@
 {
   "name": "brainstorming-ai",
   "version": "1.0.0",
-  "description": "Brainstorming strutturato con 3 agenti AI: Esplosione (30-50 idee), Demolizione (analisi critica), Sintesi (3 concept con MVP). Valida un'idea prima di investirci.",
+  "description": "Sei agenti AI per passare da un'idea grezza a un perimetro MVP validato. Brainstorming strutturato, problem framing (JTBD) e scoping (MoSCoW).",
   "skills": [
     "bs-init",
     "bs-brainstorm",
+    "bs-chat",
+    "bs-problem",
+    "bs-scope",
     "bs-status"
   ]
 }

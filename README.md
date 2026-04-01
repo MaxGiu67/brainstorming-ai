@@ -1,20 +1,45 @@
 # Brainstorming AI Strutturato
 
-Tre agenti AI che ti aiutano a validare un'idea prima di investirci tempo e soldi.
+Sei agenti AI che ti aiutano a passare da un'idea grezza a un perimetro MVP validato.
 
-## Come funziona
+## Il percorso
 
-Il brainstorming segue 3 fasi con 3 agenti diversi:
+```
+Idea grezza
+  │
+  ▼
+/bs-brainstorm ── Chiara esplode 30-50 idee
+                  Nicola demolisce le deboli
+                  Valentina sintetizza in 3 concept
+  │
+  ▼
+/bs-problem ───── Matteo definisce il problema reale
+                  JTBD, ipotesi testabili, metriche
+  │
+  ▼
+/bs-scope ─────── Andrea decide cosa costruire prima
+                  MoSCoW, anti-scope, milestone
+  │
+  ▼
+"So SE l'idea regge e COSA costruire."
+```
 
-1. **Esplosione** — Chiara (Divergent Explorer) genera 30-50 angoli diversi sulla tua idea, senza filtri e senza giudizio
-2. **Demolizione** — Nicola (Devil's Advocate) prende quelle idee e cerca di distruggerle con ragioni di mercato, tecniche e di prodotto
-3. **Sintesi** — Valentina (Synthesizer) prende le idee sopravvissute e le trasforma in 3 concept concreti con proposta MVP
+## Gli agenti
 
-Alla fine hai 3 concept validati, ognuno con: proposta di valore, differenziazione, target, MVP minimo, rischi e effort stimato.
+| Nome | Ruolo | Cosa fa |
+|------|-------|---------|
+| **Alessandro** | Orchestratore | Coordina il flusso, decide chi parla quando |
+| **Chiara** | Divergent Explorer | Genera decine di idee senza filtro |
+| **Nicola** | Devil's Advocate | Cerca di distruggere ogni idea debole |
+| **Valentina** | Synthesizer | Converge su concept concreti con proposta MVP |
+| **Matteo** | Problem Framer | Definisce il problema con JTBD e ipotesi testabili |
+| **Andrea** | MVP Scoper | Prioritizza con MoSCoW: cosa dentro, cosa fuori |
+
+Parla con loro direttamente usando `/bs-chat` e `@nome`.
 
 ## Installazione
 
-### Claude Code (consigliato)
+### Opzione 1: Claude Code (CLI)
 
 ```bash
 git clone https://github.com/MaxGiu67/brainstorming-ai.git
@@ -24,17 +49,22 @@ bash install.sh
 
 Riavvia Claude Code dopo l'installazione.
 
-### Manuale
-
+Per disinstallare:
 ```bash
-git clone https://github.com/MaxGiu67/brainstorming-ai.git
-cd brainstorming-ai
-for skill in skills/bs-*/; do
-  ln -sf "$(pwd)/$skill" ~/.claude/skills/$(basename $skill)
-done
+bash install.sh --uninstall
 ```
 
-## Uso
+### Opzione 2: Cowork (marketplace)
+
+1. Apri **Cowork** nel browser
+2. Vai su **Impostazioni** > **Plugin** (o clicca l'icona plugin)
+3. Clicca **Aggiungi da URL**
+4. Incolla: `https://github.com/MaxGiu67/brainstorming-ai`
+5. Clicca **Installa**
+
+Dopo l'installazione le 6 skill appaiono tra i comandi disponibili.
+
+## Uso rapido
 
 ### 1. Inizializza
 
@@ -44,68 +74,108 @@ done
 
 Ti chiede nome progetto, descrizione e idea. Crea la cartella `brainstorm/` con i template.
 
-### 2. Brainstorming
+### 2. Brainstorming (trio creativo)
 
 ```
 /bs-brainstorm
 ```
 
-Avvia il trio creativo. I 3 agenti lavorano in sequenza:
-- Chiara esplode l'idea in 30-50 direzioni
-- Nicola demolisce le idee deboli
-- Valentina sintetizza in 3 concept con MVP
+I 3 agenti lavorano in sequenza:
+- **Chiara** esplode l'idea in 30-50 direzioni
+- **Nicola** demolisce le idee deboli con ragioni concrete
+- **Valentina** sintetizza in 3 concept con proposta MVP
 
-Il risultato viene salvato in `brainstorm/01-brainstorm.md`.
+### 3. Parla con gli agenti
 
-### 3. Stato
+```
+/bs-chat
+@Nicola cosa ne pensi del Concept 2?
+@Valentina puoi approfondire il MVP del Concept 1?
+@tutti quale concept ha più potenziale?
+```
+
+### 4. Problem Framing
+
+```
+/bs-problem
+```
+
+**Matteo** ti guida a definire il problema reale: JTBD, ipotesi testabili (H1/H2/H3), metriche di successo.
+
+### 5. MVP Scoping
+
+```
+/bs-scope
+```
+
+**Andrea** prioritizza con MoSCoW: Must Have, Should Have, Could Have, Won't Have (anti-scope). Definisce milestone MVP.
+
+### 6. Stato
 
 ```
 /bs-status
 ```
 
-Mostra il progresso della sessione.
+Mostra il progresso di ogni fase.
 
-## Esempio
+## Esempio di sessione
 
 ```
 > /bs-init
 Nome: FitTracker
-Descrizione: App per tracciare allenamenti in palestra
-Idea: Un'app che usa la fotocamera per contare le ripetizioni automaticamente
+Idea: App che usa la fotocamera per contare le ripetizioni in palestra
 
 > /bs-brainstorm
 [Chiara genera 42 idee in 7 categorie]
 [Nicola demolisce 28 idee, ne sopravvivono 14]
-[Valentina sintetizza in 3 concept:]
+[Valentina sintetizza:]
 
 Concept 1: "RepCount" — Computer vision per conteggio rep
 Concept 2: "GymBuddy" — Social fitness con sfide tra amici
 Concept 3: "FormCheck" — AI coach che corregge la postura
 
-Quale preferisci?
+> /bs-chat
+@Nicola quale concept ha meno rischi tecnici?
+
+### Nicola (Devil's Advocate)
+GymBuddy. Il social fitness è un problema risolto (UX),
+non servono modelli ML custom. RepCount e FormCheck
+dipendono dalla qualità del modello vision — se non funziona
+bene al primo uso, l'utente non torna.
+
+> /bs-problem
+[Matteo: 6 domande → JTBD + 3 ipotesi + metriche]
+
+> /bs-scope
+[Andrea: 4 Must Have, 3 Should, 2 Could, 5 Won't Have]
 ```
 
 ## Struttura file generati
 
 ```
 brainstorm/
-├── _status.md          # Progresso (auto-aggiornato)
-├── _changelog.md       # Log decisioni
-└── 01-brainstorm.md    # Output del trio (Divergenza → Sfida → Sintesi)
+├── _status.md              # Progresso (auto-aggiornato)
+├── _changelog.md           # Log decisioni
+├── 01-brainstorm.md        # Divergenza → Sfida → Sintesi
+├── 02-problem-framing.md   # JTBD, ipotesi H1/H2/H3, metriche
+└── 04-mvp-scope.md         # MoSCoW, anti-scope, milestone
 ```
 
 ## Requisiti
 
-- [Claude Code](https://claude.ai/code) (CLI)
+- [Claude Code](https://claude.ai/code) (CLI) oppure Cowork
 - Node.js 18+ (per gli script TypeScript)
 - Nessuna dipendenza npm da installare
 
 ## Disinstallazione
 
+**Claude Code:**
 ```bash
 cd brainstorming-ai
 bash install.sh --uninstall
 ```
+
+**Cowork:** Vai su Impostazioni > Plugin > brainstorming-ai > Disinstalla
 
 ## Licenza
 

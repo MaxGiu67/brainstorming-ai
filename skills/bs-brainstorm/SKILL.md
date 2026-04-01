@@ -51,8 +51,6 @@ File: `brainstorm/01-brainstorm.md` (1000-1500 parole) con 3 sezioni:
 - Sfida (analisi critica)
 - Sintesi (3 concept con proposta MVP)
 
-## Dopo il brainstorming
-Hai 3 concept validati. Puoi:
-- Approfondire il concept scelto con analisi più dettagliate
-- Usare i concept come base per un MVP
-- Ripetere il brainstorming con un angolo diverso
+## Prossimo passo
+→ `/bs-problem` per definire il problema reale del concept scelto (JTBD, ipotesi testabili, metriche)
+→ `/bs-chat` per parlare con gli agenti e approfondire (es. `@Nicola cosa ne pensi del Concept 2?`)

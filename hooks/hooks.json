@@ -8,7 +8,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'brainstorm/01'; then npx tsx \"${CLAUDE_PLUGIN_ROOT}/scripts/update-bs-status.ts\" --brainstorm-dir \"$(pwd)/brainstorm\" 2>/dev/null; fi",
+          "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'brainstorm/0[0-4]'; then npx tsx \"${CLAUDE_PLUGIN_ROOT}/scripts/update-bs-status.ts\" --brainstorm-dir \"$(pwd)/brainstorm\" 2>/dev/null; fi",
           "timeout": 10000
         }
       ]
@@ -21,7 +21,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'brainstorm/01'; then npx tsx \"${CLAUDE_PLUGIN_ROOT}/scripts/update-bs-status.ts\" --brainstorm-dir \"$(pwd)/brainstorm\" 2>/dev/null; fi",
+          "command": "if echo \"$CLAUDE_TOOL_INPUT\" | grep -q 'brainstorm/0[0-4]'; then npx tsx \"${CLAUDE_PLUGIN_ROOT}/scripts/update-bs-status.ts\" --brainstorm-dir \"$(pwd)/brainstorm\" 2>/dev/null; fi",
           "timeout": 10000
         }
       ]
