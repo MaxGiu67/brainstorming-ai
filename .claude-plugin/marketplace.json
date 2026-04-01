@@ -1,0 +1,10 @@
+{
+  "name": "brainstorming-ai",
+  "version": "1.0.0",
+  "description": "Brainstorming strutturato con 3 agenti AI: Esplosione (30-50 idee), Demolizione (analisi critica), Sintesi (3 concept con MVP). Valida un'idea prima di investirci.",
+  "skills": [
+    "bs-init",
+    "bs-brainstorm",
+    "bs-status"
+  ]
+}
