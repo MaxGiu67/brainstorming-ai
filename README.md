@@ -57,10 +57,11 @@ bash install.sh --uninstall
 ### Opzione 2: Cowork (marketplace)
 
 1. Apri **Cowork** nel browser
-2. Vai su **Impostazioni** > **Plugin** (o clicca l'icona plugin)
-3. Clicca **Aggiungi da URL**
-4. Incolla: `https://github.com/MaxGiu67/brainstorming-ai`
-5. Clicca **Installa**
+2. Vai su **Impostazioni** > **Plugin** > **Personale**
+3. Clicca **Aggiungi marketplace**
+4. Incolla: `MaxGiu67/brainstorming-ai`
+5. Clicca **Sincronizza**
+6. Installa il plugin dalla lista
 
 Dopo l'installazione le 6 skill appaiono tra i comandi disponibili.
 
