@@ -1,23 +1,29 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "brainstorming-ai",
   "owner": {
     "name": "MaxGiu67"
   },
-  "metadata": {
-    "description": "Sei agenti AI per passare da un'idea grezza a un perimetro MVP validato. Brainstorming strutturato, problem framing (JTBD) e scoping (MoSCoW).",
-    "version": "1.0.0"
-  },
   "plugins": [
     {
       "name": "brainstorming-ai",
+      "source": "./",
+      "description": "Sei agenti AI per passare da un'idea grezza a un perimetro MVP validato. Brainstorming strutturato, problem framing (JTBD) e scoping (MoSCoW).",
       "version": "1.0.0",
-      "description": "Brainstorming strutturato con 6 agenti AI: trio creativo (esplosione, demolizione, sintesi), problem framing JTBD, MVP scoping MoSCoW. 6 skill per validare un'idea.",
-      "source": ".",
       "author": {
         "name": "MaxGiu67"
       },
+      "license": "MIT",
       "category": "development",
-      "tags": ["brainstorming", "ideation", "mvp", "jtbd", "moscow", "multi-agent"]
+      "tags": ["brainstorming", "ideation", "mvp", "jtbd", "moscow", "multi-agent"],
+      "skills": [
+        "./skills/bs-init",
+        "./skills/bs-brainstorm",
+        "./skills/bs-chat",
+        "./skills/bs-problem",
+        "./skills/bs-scope",
+        "./skills/bs-status"
+      ]
     }
   ]
 }
